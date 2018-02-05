@@ -34,4 +34,38 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+
+  # get currnet state of inversion
+  m_inv <- x$get_inverse()
+  
+  # if matrix has been computer ('not null'), return the inversion
+  if(!is.null(m_inv)) {
+    message('getting cached data')
+    return(m_inv)
+    
+  }
+  
+  # if inverse is null, get the matrix
+  mat <- x$get()
+  
+  # compute the inverse
+  m_inv <- solve(mat, ...)
+  
+  # cache the inverse
+  x$set_inverse(mat)
+  
+  # return the inverted matrix
+  return(m_inv)
+  
+  # cachemean <- function(x, ...) {
+  #   m <- x$getmean()
+  #   if(!is.null(m)) {
+  #     message("getting cached data")
+  #     return(m)
+  #   }
+  #   data <- x$get()
+  #   m <- mean(data, ...)
+  #   x$setmean(m)
+  #   m
+  # }    
 }
